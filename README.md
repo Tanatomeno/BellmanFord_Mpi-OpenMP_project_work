@@ -1,4 +1,4 @@
-##Ispiration:
+## Ispiration:
 https://github.com/qiansunn/BellmanFord.git
 
 ## Dependencies
