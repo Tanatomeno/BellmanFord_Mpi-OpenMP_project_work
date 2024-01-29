@@ -1,3 +1,6 @@
+##Ispiration:
+https://github.com/qiansunn/BellmanFord.git
+
 ## Dependencies
 * OpenMP
 * MPI
