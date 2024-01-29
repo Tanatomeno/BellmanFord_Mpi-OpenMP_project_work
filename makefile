@@ -53,11 +53,33 @@ IO_3 = $(OBJ_DIR)/printGraph3.o $(OBJ_DIR)/readGraphFromFile3.o $(OBJ_DIR)/print
 
 
 
-all: clean_exe main_generator main_sequential main_parallel
+all: dir_creation clean_exe main_generator main_sequential main_parallel
+
+
+firstdir := Informations Results Plots 
+seconddir := OMP_MPI
+thirddir := opt0 opt1 opt2 opt3
+dir_creation: 
+	mkdir file
+	mkdir build
+	for fdir in $(firstdir); do \
+		mkdir -p $$fdir ; \
+		for sdir in $(seconddir); do \
+			mkdir -p $$fdir/$$sdir ; \
+			for tdir in $(thirddir); do \
+				mkdir -p $$fdir/$$sdir/$$tdir ; \
+			done; \
+		done; \
+	done
 
 
 
-
+clean: 
+	rm -rf file
+	rm -rf build
+	for fdir in $(firstdir); do \
+		rm -rf $$fdir ; \
+	done
 
 ##
 main_parallel: main_parallel0 main_parallel1 main_parallel2 main_parallel3
@@ -334,7 +356,11 @@ $(OBJ_DIR)/printGraph3.o: $(SRC_IO)/printGraph.c $(INC_IO)/printGraph.h
 
 
 
-clean: clean_info clean_file clean_exe
+
+
+
+
+clean2: clean_info clean_file clean_exe
 
 clean_exe:
 	rm -f $(OBJ_DIR)/*.o
@@ -345,38 +371,9 @@ clean_file:
 	rm -f file/*
 
 clean_info:
-	rm -f Informations/OMP_MPI/opt0/*
-	rm -f Informations/OMP_MPI/opt1/*
-	rm -f Informations/OMP_MPI/opt2/*
-	rm -f Informations/OMP_MPI/opt3/*
-	rm -f Informations/SEQUENTIAL/opt0/*
-	rm -f Informations/SEQUENTIAL/opt1/*
-	rm -f Informations/SEQUENTIAL/opt2/*
-	rm -f Informations/SEQUENTIAL/opt3/*
-	rm -f Results/OMP_MPI/opt0/*
-	rm -f Results/OMP_MPI/opt1/*
-	rm -f Results/OMP_MPI/opt2/*
-	rm -f Results/OMP_MPI/opt3/*
-	rm -f Results/SEQUENTIAL/opt0/*
-	rm -f Results/SEQUENTIAL/opt1/*
-	rm -f Results/SEQUENTIAL/opt2/*
-	rm -f Results/SEQUENTIAL/opt3/*
-	rm -f Plots/OMP_MPI/opt0/*
-	rm -f Plots/OMP_MPI/opt1/*
-	rm -f Plots/OMP_MPI/opt2/*
-	rm -f Plots/OMP_MPI/opt3/*
-	rm -f Plots/SEQUENTIAL/opt0/*
-	rm -f Plots/SEQUENTIAL/opt1/*
-	rm -f Plots/SEQUENTIAL/opt2/*
-	rm -f Plots/SEQUENTIAL/opt3/*
-	rm -f Tables/OMP_MPI/opt0/*
-	rm -f Tables/OMP_MPI/opt1/*
-	rm -f Tables/OMP_MPI/opt2/*
-	rm -f Tables/OMP_MPI/opt3/*
-	rm -f Tables/SEQUENTIAL/opt0/*
-	rm -f Tables/SEQUENTIAL/opt1/*
-	rm -f Tables/SEQUENTIAL/opt2/*
-	rm -f Tables/SEQUENTIAL/opt3/*
+	rm -rf Informations/*
+	rm -rf Results/*
+	rm -rf Plots/*
 
 
 
